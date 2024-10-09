@@ -1,4 +1,4 @@
-name: Build and deploy the app
+name: Build & deploy the app
 on:
   push:
     branches:
@@ -6,19 +6,20 @@ on:
 
 jobs:
   build:
-    name: build the app
+    name: Job to build the cap app
     runs-on: ubuntu-latest
     steps:
     - name: Check out repository code
       uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
       with:
         node-version: 20.x
-    - name: install build tool
-      run: |
-        npm install -g mbt
-        mbt --version
-    - name: actually build the app (cap)
-      run : |
-        cd cap
-        npm run build
+
+    - name: Install MBT build tool
+      run: npm install -g mbt
+    - name: Build MTA Archive
+      run : cd cap && npm run build
+
+    - name: Deploy to CF
+      run: echo "Deploying to CF next"

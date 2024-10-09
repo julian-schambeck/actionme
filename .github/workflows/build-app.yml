@@ -1,0 +1,25 @@
+name: Automatic build
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+    app-build:
+        name: app build
+        runs-on: ubuntu-latest
+        steps:
+        - name: Check out repository code
+          uses: actions/checkout@v4
+        - name: Set up Node.js
+          uses: actions/setup-node@v3
+          with:
+            node-version: '20.x'
+        - name: install dependencies
+          run: |
+            npm install -g mbt
+            npm install --production
+            mbt --version
+        - name: greet me
+          run : echo "hi there, how is it going?"

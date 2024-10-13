@@ -1,25 +1,19 @@
-name: Build & deploy the app
+name: docker
 on:
   push:
     branches:
       - staging
 
 jobs:
-  build:
-    name: Job to build the cap app
+  indocker:
+    name: Run job in docker
     runs-on: ubuntu-latest
+    container:
+      image: node:20
+
     steps:
-    - name: Check out repository code
-      uses: actions/checkout@v4
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20.x
-
-    - name: Install MBT build tool
-      run: npm install -g mbt
-    - name: Build MTA Archive
-      run : cd cap && npm run build
-
-    - name: Deploy to CF
-      run: echo "Deploying to CF next"
+    - name: git
+      run: |
+        git branch
+        git checkout staging
+        ls -l cap

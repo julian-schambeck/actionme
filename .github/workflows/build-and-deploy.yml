@@ -12,8 +12,9 @@ jobs:
       image: node:20
 
     steps:
-    - name: git
-      run: |
-        git branch
-        git checkout staging
-        ls -l cap
+      - uses: actions/checkout@v4
+        with:
+          ref: staging
+      - run: |
+          pwd
+          ls -l 

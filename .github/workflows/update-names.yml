@@ -18,7 +18,8 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git checkout -b auto-update-names
-          git status
           echo "Peter" >> names
           git add names && git commit -m "Add name to names file"
-          gh pr create --title "latest update to names" --body "auto update" --head auto-update-names
+          git status
+          git push -u origin --set-upstream auto-update-names
+          gh pr create --title "latest update to names" --body "auto update"

@@ -18,9 +18,15 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git checkout -b auto-update-names
+          if git ls-remote --exit-code --heads origin auto-update-names; then
+            git fetch origin auto-update-names
+            git checkout auto-update-names
+          else
+            git checkout -b auto-update-names
+          fi
           echo "Peter" >> names
           git add names && git commit -m "Add name to names file"
-          git status
-          git push -u origin --set-upstream auto-update-names
-          gh pr create --title "latest update to names" --body "auto update" --base main
+          git push -u origin auto-update-names
+          if gh pr view mybranch --repo owner/repo > /dev/null 2>&1; then
+            gh pr create --title "latest update to names" --body "auto update" --base main
+          fi

@@ -21,4 +21,4 @@ jobs:
           git status
           echo "Peter" >> names
           git add names && git commit -m "Add name to names file"
-          gh pr create --title "latest update to names"
+          gh pr create --title "latest update to names" --body "auto update"

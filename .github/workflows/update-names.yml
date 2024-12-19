@@ -17,7 +17,8 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git checkout -b auto-update-names
           echo "Peter" >> names
-          git add names && git commit -m "Add name to names file" && git push
+          git add names && git commit -m "Add name to names file"
+          git push --set-upstream origin auto-update-names
 
       - name: pull-request-action
         uses: vsoch/pull-request-action@master

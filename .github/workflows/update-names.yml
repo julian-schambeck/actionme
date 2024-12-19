@@ -27,6 +27,6 @@ jobs:
           echo "Peter" >> names
           git add names && git commit -m "Add name to names file"
           git push -u origin auto-update-names
-          if ! gh pr view mybranch > /dev/null 2>&1; then
+          if ! gh pr view auto-update-names; then
             gh pr create --title "latest update to names" --body "auto update" --base main
           fi

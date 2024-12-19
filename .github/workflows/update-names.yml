@@ -5,12 +5,14 @@ on:
 jobs:
   main:
     runs-on: ubuntu-latest
+    container: node:22
     steps:
       - uses: actions/checkout@v4
         with:
             ref: main
-            # let's have some commit history to work with
-            fetch-depth: 0
+      - run: |
+          git status
+          gh --version
       - name: add name and commit
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -22,4 +24,4 @@ jobs:
           git add names && git commit -m "Add name to names file"
           git status
           git push -u origin --set-upstream auto-update-names
-          gh pr create --title "latest update to names" --body "auto update"
+          gh pr create --title "latest update to names" --body "auto update" --base main
